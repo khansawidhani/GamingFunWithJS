@@ -68,7 +68,10 @@ img{
     transition: transform 1s;
     transform-style: preserve-3d;
 }
-.flip-card:hover .flip-inner-box{
+/* .flip-card:hover .flip-inner-box{
+    transform: rotateY(180deg);
+} */
+.clicked{
     transform: rotateY(180deg);
 }
 .flip-box-front, .flip-box-back{
