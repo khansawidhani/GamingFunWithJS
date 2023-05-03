@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -6,7 +6,8 @@
 }
 html{
     font-size: 62.5%;
-    font-family: 'Darumadrop One', cursive;
+    font-family: 'Barlow', sans-serif;
+
 }
 /* .wrapper{
     width: 100vw;
@@ -35,16 +36,24 @@ html{
     width: 100vw;
     height: 100vh;
     padding: 3rem;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+h1{
+    font-size: 3rem;
+}
+h1 span{
+    color: yellowgreen;
 }
 .inner-wrapper{
-    width: 60vh;
-    height: 60vh;
     display: grid;
+    /* background-color: #333; */
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    gap: 1rem;
+    grid-gap: 2rem;
 }
 
 img{
@@ -52,15 +61,67 @@ img{
     height: 100%;
     object-fit: cover;
 }
-.flip-card{
+.card{
+    position: relative;
     width: 10rem;
     height: 10rem;
     margin: auto;
     cursor: pointer;
+    /* border: .2rem solid #333; */
+    border-radius: 1rem;
+    transition: transform 2s;
+    transform-style: preserve-3d;
     perspective: 100rem;
     
 }
+.back-card, .front-card{
+    background-color: yellowgreen;
+    border-radius: 1rem;
 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    
+}
+.back-card{
+    transform: rotateY(180deg) !important;
+}
+.front-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.front-card h1{
+    color: #333;
+}
+
+.card-tapped{
+    transform: rotateY(180deg);
+}
+.back-card img{
+    padding: 2rem;
+
+}
+.card-selected{
+    border: .2rem solid purple;
+    transform: rotateY(180deg);
+}
+
+.card-matched .back-card{
+    transform: rotateY(180deg);
+}
+.card-matched .front-card{
+    background-color: #333;
+}
+.card-matched .front-card h1{
+    display: none;
+}
 .flip-inner-box{
     position: relative;
     width: 100%;
