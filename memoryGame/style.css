@@ -45,16 +45,18 @@ img{
     height: 10rem;
     margin: auto;
     cursor: pointer;
-    /* border: .2rem solid #333; */
+    border: .2rem solid #000;
     border-radius: 1rem;
     transition: transform 2s;
     transform-style: preserve-3d;
     perspective: 100rem;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px;
+
     
 }
 .back-card, .front-card{
     background-color: yellowgreen;
-    border-radius: 1rem;
+    border-radius: .8rem;
 
     position: absolute;
     top: 0;
@@ -66,6 +68,7 @@ img{
 }
 .back-card{
     transform: rotateY(180deg) !important;
+    background-color: #fcfcfc;
 }
 .front-card {
     width: 100%;
@@ -73,33 +76,32 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: yellowgreen;
+
     
 }
 .front-card h1{
     color: #333;
 }
 
-.card-tapped{
-    transform: rotateY(180deg);
-}
 .back-card img{
     padding: 2rem;
 
 }
 .card-selected{
-    border: .2rem solid purple;
     transform: rotateY(180deg);
 }
 
-.card-matched .back-card{
-    transform: rotateY(180deg);
-}
 .card-matched .front-card{
     background-color: #333;
 }
+/* .card-matched .front-card{
+    background-color: #333;
+}
+*/
 .card-matched .front-card h1{
     display: none;
-}
+} 
 .flip-inner-box{
     position: relative;
     width: 100%;
