@@ -29,21 +29,20 @@ let cardData = [
 let gameCardData = cardData.concat(cardData);
 const parent = document.querySelector('.inner-wrapper');
 let clickCounter = 0;
-let firstCard = "";
-let secondCard = "";
-
+let firstCardName = "";
+let secondCardName = "";
+let firstCard;
+let secondCard;
+const currentCard = curCard => curCard.classList.contains('text') ? curCard.parentNode.parentNode : curCard.parentNode;
 const resetGame = () => {
     clickCounter = 0;
     firstCard = "";
     secondCard = "";
+    firstCardName = "";
+    secondCardName = "";
+}
 
-}
-const matchCards = (firstCard, secondCard) => {
-    if(firstCard === secondCard){
-        return true;
-    }
-    return false;
-}
+const matchCards = (firstCardName, secondCardName) => firstCardName === secondCardName ? true : false;
 let shuffle = (array) => {
     let randomIndex;
     for (let x = array.length - 1; x >= 0; x--) {
@@ -55,37 +54,45 @@ let shuffle = (array) => {
 let shuffleCards = shuffle(gameCardData);
 
 parent.addEventListener('click', (e) => {
-    let curCard = e.target;
-    if (curCard== parent)return false;
-    if(clickCounter < 3){
-        if(curCard.classList.contains('text')){
-            curCard = curCard.parentNode.parentNode;
-            console.log(curCard);
-            if(!curCard.classList.contains('card-selected')){
-                clickCounter++;
-                curCard.classList.add('card-selected');
-                firstCard = curCard.dataset.name;
-                console.log(firstCard);
-                
+    let el = e.target;
+    let curCard = currentCard(el);
+    if (curCard == parent) return false;
+    clickCounter++;
+    if (clickCounter <= 2) {
+        console.log(curCard);
+        if (curCard.classList.contains('back-card')) clickCounter--;
+        else {
+            curCard.classList.add('card-selected');
+            if (clickCounter == 1) {
+                firstCardName = curCard.dataset.name;
+                firstCard = curCard;
             }
-            else{
-                clickCounter--;
-            }
-        }
-        else{
-            curCard = curCard.parentNode;
-            if(!curCard.classList.contains('card-selected')){
-                clickCounter++;
+            else {
+                secondCardName = curCard.dataset.name;
+                secondCard = curCard;
+                console.log(secondCardName);
+                console.log(matchCards(firstCardName, secondCardName));
+                if (matchCards(firstCardName, secondCardName)) {
+                    setTimeout(() => {
+                        firstCard.classList.remove('card-selected');
+                        secondCard.classList.remove('card-selected')
+                        firstCard.classList.add('card-matched');
+                        secondCard.classList.add('card-matched');
+                        resetGame();
+                    }, 2000);
+                }
+                else {
+                    setTimeout(() => {
+                        firstCard.classList.remove('card-selected');
+                        secondCard.classList.remove('card-selected');
+                        resetGame();
+                    }, 2000);
+                }
 
-                curCard.classList.add('card-selected');
-                secondCard = curCard.dataset.name;
-                console.log(secondCard);
             }
-            else{
-                clickCounter--;
-            }
-            // curCard.classList.add('card-tapped');
+
         }
+
     }
 });
 // generating card-grid
@@ -115,6 +122,6 @@ for (let i = 0; i < shuffleCards.length; i++) {
     frontCard.appendChild(guess);
     card.appendChild(frontCard);
     card.appendChild(backCard);
-    
+
     parent.appendChild(card);
 }
