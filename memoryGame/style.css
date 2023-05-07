@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500;700&display=swap');
 :root{
     --bgColor : #3f564c;
-    --blue: #398a90
+    --blue: #398a90;
+    --yellow : rgb(255, 231, 20)
 }
 * {
     margin: 0;
@@ -24,6 +25,7 @@ html {
     align-items: center;
     justify-content: center;
     gap: 3rem;
+    background-color: var(--yellow);
 }
 
 h1 {
@@ -31,18 +33,56 @@ h1 {
 }
 
 h1 span {
-    color: var(--blue);
+    color: #fff;
+    background-color: #333;
+    border-radius: .5rem;
+    padding: 1rem .5rem;
 }
+.game-wrapper{
+    /* border: .2rem solid var(--blue); */
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1.5rem;
+    background-color: #fff;
+}
+.game-statistics{
+    /* margin: 2rem; */
+    /* padding: 2rem 0; */
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: .5rem;
 
+
+    
+
+}
+.game-statistics p{
+    
+    
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+    font-family: 'Roboto Slab', serif;
+
+}
+.game-statistics p span{
+    font-weight: 400;
+
+}
 .inner-wrapper {
     display: grid;
     /* background-color: #333; */
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    grid-gap: 2rem;
-    border: .2rem solid #333;
-    padding: 2rem;
-    border-radius: 1rem;
+    grid-gap: .5rem;
+    /* padding: 2rem; */
 }
 
 img {
@@ -58,7 +98,7 @@ img {
     margin: auto;
     cursor: pointer;
     border: .2rem solid #000;
-    border-radius: .8rem;
+    border-radius: .6rem;
     transition: transform 2s;
     transform-style: preserve-3d;
     perspective: 100rem;
@@ -91,12 +131,13 @@ img {
     justify-content: center;
     align-items: center;
     background-color: var(--blue);
+    background-color: rgb(255, 231, 20);
 
 
 }
 
 .front-card h1 {
-    color: #eeeeed;
+    color: #173133;
 }
 
 .back-card img {
