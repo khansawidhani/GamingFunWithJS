@@ -28,11 +28,17 @@ let cardData = [
 ];
 let gameCardData = cardData.concat(cardData);
 const parent = document.querySelector('.inner-wrapper');
+const moves = document.getElementById('moves');
+const timeSpan = document.getElementById('timeSpan');
 let clickCounter = 0;
+let movesCounter = 0;
+let mins =0;
+let seconds =0;
 let firstCardName = "";
 let secondCardName = "";
 let firstCard;
 let secondCard;
+moves.innerText = movesCounter;
 const currentCard = curCard => curCard.classList.contains('text') ? curCard.parentNode.parentNode : curCard.parentNode;
 const resetGame = () => {
     clickCounter = 0;
@@ -72,12 +78,16 @@ parent.addEventListener('click', (e) => {
                 secondCard = curCard;
                 console.log(secondCardName);
                 console.log(matchCards(firstCardName, secondCardName));
+                
+                moves.innerText = movesCounter.toString();
                 if (matchCards(firstCardName, secondCardName)) {
                     setTimeout(() => {
                         firstCard.classList.remove('card-selected');
                         secondCard.classList.remove('card-selected')
                         firstCard.classList.add('card-matched');
                         secondCard.classList.add('card-matched');
+                        movesCounter++;
+                        moves.innerText = movesCounter.toString();
                         resetGame();
                     }, 2000);
                 }
@@ -85,6 +95,8 @@ parent.addEventListener('click', (e) => {
                     setTimeout(() => {
                         firstCard.classList.remove('card-selected');
                         secondCard.classList.remove('card-selected');
+                        movesCounter++;
+                        moves.innerText = movesCounter.toString();
                         resetGame();
                     }, 2000);
                 }
