@@ -29,21 +29,22 @@ let cardData = [
 let gameCardData = cardData.concat(cardData);
 const parent = document.querySelector('.inner-wrapper');
 const moves = document.getElementById('moves');
-const startButton = document.getElementById('startGame');
-const endButton = document.getElementById('endGame');
+const btn = document.getElementById('btn');
 
 
 
 let clickCounter = 0;
 let movesCounter = 0;
-let minutes =0;
-let seconds =0;
+let minutes = 0;
+let seconds = 0;
 let firstCardName = "";
 let secondCardName = "";
 let startGame = false;
+let buttonName = startGame ? 'Stop Game' : 'Start Game';
 let firstCard;
 let secondCard;
 moves.innerText = movesCounter;
+btn.innerText = buttonName;
 const currentCard = curCard => curCard.classList.contains('text') ? curCard.parentNode.parentNode : curCard.parentNode;
 const resetGame = () => {
     clickCounter = 0;
@@ -63,87 +64,94 @@ let shuffle = (array) => {
     return array;
 }
 let shuffleCards = shuffle(gameCardData);
-function timer(){
-    if(minutes < 15) {
-        setInterval(()=>{
-            if( seconds >= 60){
+function timer() {
+    if (minutes < 3) {
+        setInterval(() => {
+            if (seconds >= 60) {
                 seconds = 0;
                 minutes++;
             }
-            else{
+            else {
                 seconds++;
             }
-    
+
             console.log(minutes + ':' + seconds);
             document.getElementById('seconds').innerText = seconds < 10 ? `0${seconds.toString()}` : seconds.toString();
-            document.getElementById('mins').innerText = minutes < 10 ? `0${minutes.toString()}` : minutes.toString;
+            document.getElementById('mins').innerText =  `0${minutes.toString()}`;
         }, 1000);
     }
-    else{
+    else {
         console.log('Time Out');
     }
 }
-console.log(startGame);
-startButton.addEventListener('click', ()=>{
-    startGame = true;
-    console.log(startGame);
-    // timer();
-});
-endButton.addEventListener('click', ()=>{
 
-})
-if(startGame == true){
-    console.log('started');
-    timer();
-}
-    parent.addEventListener('click', (e) => {
-        let el = e.target;
-        let curCard = currentCard(el);
-        if (curCard == parent) return false;
-        clickCounter++;
-        if (clickCounter <= 2) {
-            console.log(curCard);
-            if (curCard.classList.contains('back-card')) clickCounter--;
-            else {
-                curCard.classList.add('card-selected');
-                if (clickCounter == 1) {
-                    firstCardName = curCard.dataset.name;
-                    firstCard = curCard;
-                }
+btn.addEventListener('click', () => {
+    startGame = !startGame;
+    buttonName = startGame ? 'Stop Game' : 'Start Game';
+    btn.innerText = buttonName;
+    if (startGame) {
+        timer();
+        parent.addEventListener('click', (e) => {
+            let el = e.target;
+            let curCard = currentCard(el);
+            if (curCard == parent) return false;
+            clickCounter++;
+            if (clickCounter <= 2) {
+                console.log(curCard);
+                if (curCard.classList.contains('back-card')) clickCounter--;
                 else {
-                    secondCardName = curCard.dataset.name;
-                    secondCard = curCard;
-                    console.log(secondCardName);
-                    console.log(matchCards(firstCardName, secondCardName));
-                    
-                    moves.innerText = movesCounter.toString();
-                    if (matchCards(firstCardName, secondCardName)) {
-                        setTimeout(() => {
-                            firstCard.classList.remove('card-selected');
-                            secondCard.classList.remove('card-selected')
-                            firstCard.classList.add('card-matched');
-                            secondCard.classList.add('card-matched');
-                            movesCounter++;
-                            moves.innerText = movesCounter.toString();
-                            resetGame();
-                        }, 2000);
+                    curCard.classList.add('card-selected');
+                    if (clickCounter == 1) {
+                        firstCardName = curCard.dataset.name;
+                        firstCard = curCard;
                     }
                     else {
-                        setTimeout(() => {
-                            firstCard.classList.remove('card-selected');
-                            secondCard.classList.remove('card-selected');
-                            movesCounter++;
-                            moves.innerText = movesCounter.toString();
-                            resetGame();
-                        }, 2000);
+                        secondCardName = curCard.dataset.name;
+                        secondCard = curCard;
+                        console.log(secondCardName);
+                        console.log(matchCards(firstCardName, secondCardName));
+
+                        moves.innerText = movesCounter.toString();
+                        if (matchCards(firstCardName, secondCardName)) {
+                            setTimeout(() => {
+                                firstCard.classList.remove('card-selected');
+                                secondCard.classList.remove('card-selected')
+                                firstCard.classList.add('card-matched');
+                                secondCard.classList.add('card-matched');
+                                movesCounter++;
+                                moves.innerText = movesCounter.toString();
+                                resetGame();
+                            }, 2000);
+                        }
+                        else {
+                            setTimeout(() => {
+                                firstCard.classList.remove('card-selected');
+                                secondCard.classList.remove('card-selected');
+                                movesCounter++;
+                                moves.innerText = movesCounter.toString();
+                                resetGame();
+                            }, 2000);
+                        }
+
                     }
-    
+
                 }
-    
+
             }
-    
+        });
+        if(card.classList.contains('card-matched')){
+            stopTimer();
+            startGame = false;
         }
-    });
+
+    }
+    else{
+        stopTimer();
+        startGame = false;
+    }
+});
+
+
 // generating card-grid
 for (let i = 0; i < shuffleCards.length; i++) {
     // creates new card
