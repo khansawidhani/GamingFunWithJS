@@ -96,9 +96,10 @@ btn.addEventListener('click', () => {
             let curCard = currentCard(el);
             if (curCard == parent) return false;
             clickCounter++;
+            movesCounter++;
+            moves.innerText = movesCounter.toString();
             if (clickCounter <= 2) {
-                console.log(curCard);
-                if (curCard.classList.contains('back-card')) clickCounter--;
+                if (curCard.classList.contains('back-card')) {clickCounter--;movesCounter--}
                 else {
                     curCard.classList.add('card-selected');
                     if (clickCounter == 1) {
@@ -108,18 +109,13 @@ btn.addEventListener('click', () => {
                     else {
                         secondCardName = curCard.dataset.name;
                         secondCard = curCard;
-                        console.log(secondCardName);
-                        console.log(matchCards(firstCardName, secondCardName));
 
-                        moves.innerText = movesCounter.toString();
                         if (matchCards(firstCardName, secondCardName)) {
                             setTimeout(() => {
                                 firstCard.classList.remove('card-selected');
                                 secondCard.classList.remove('card-selected')
                                 firstCard.classList.add('card-matched');
                                 secondCard.classList.add('card-matched');
-                                movesCounter++;
-                                moves.innerText = movesCounter.toString();
                                 resetGame();
                             }, 2000);
                         }
